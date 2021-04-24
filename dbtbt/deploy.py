@@ -1,6 +1,6 @@
 import sys
 
-from dbtbt.utils.dev_tools import (
+from dbtbt.utils.utils import (
     HEADER,
     print_dry_run,
     print_dbt_model_dependencies,

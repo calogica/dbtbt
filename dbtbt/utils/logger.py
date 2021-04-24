@@ -26,7 +26,7 @@ def color_me(msg, color):
         "white": Fore.WHITE,
         "black": Fore.BLACK,
         "blue": Fore.BLUE,
-        "yellow": Fore.YELLOW
+        "yellow": Fore.YELLOW,
     }
     assert color in colors, f"'{color}' is not supported"
     return colors[color] + msg + Style.RESET_ALL
@@ -50,7 +50,9 @@ def make_logger():
     log_message_format = "%(asctime)s | %(message)s"
     log_formatter = logging.Formatter(log_message_format, datefmt="%H:%M:%S")
     log_path = DEFAULT_LOG_PATH.joinpath("dbtbt.log")
-    fh = TimedRotatingFileHandler(filename=log_path, when="d", interval=1, backupCount=7)
+    fh = TimedRotatingFileHandler(
+        filename=log_path, when="d", interval=1, backupCount=7
+    )
     fh.setLevel(logging.INFO)
     fh.setFormatter(log_formatter)
 

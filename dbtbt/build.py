@@ -1,21 +1,26 @@
-from dbtbt.utils.dev_tools import (
+from dbtbt.utils.utils import (
     HEADER,
     print_dry_run,
     print_dbt_model_dependencies,
     print_msg,
     check_upstream_source,
-    run_dbt)
+    run_dbt,
+)
+
 
 class Build(object):
     """
     Build class
     """
+
     @staticmethod
     def build(args, config, model_list, exclude_list):
 
         TARGET = config[args.target]["target"]
 
-        args.upstream_source = "dev" if not args.upstream_source else args.upstream_source
+        args.upstream_source = (
+            "dev" if not args.upstream_source else args.upstream_source
+        )
 
         print_dry_run(args)
         print_dbt_model_dependencies(model_list, args)
@@ -37,4 +42,3 @@ class Build(object):
         dbt_commands.append(dbt_test)
 
         run_dbt(dbt_commands, args.dry_run)
-

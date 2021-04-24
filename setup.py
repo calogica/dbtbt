@@ -22,25 +22,22 @@ setup(
     include_package_data=True,
     package_data={
         # If any package contains *.txt or *.rst files, include them:
-        '': ['*.sql', '*.yml', '*.md', '*.html'],
+        "": ["*.sql", "*.yml", "*.md", "*.html"],
     },
-    scripts=['bin/dbtbt'],
-    python_requires='>=3.6',
+    scripts=["bin/dbtbt"],
+    python_requires=">=3.6",
     install_requires=[
-        'colorama>=0.3.9',
-        'PyYAML>=5.1',
+        "colorama>=0.3.9",
+        "PyYAML>=5.1",
     ],
     zip_safe=False,
     classifiers=[
-        'Development Status :: 3 - Alpha',
-
-        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
-
-        'Operating System :: MacOS :: MacOS X',
-        'Operating System :: POSIX :: Linux',
-
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+        "Development Status :: 3 - Alpha",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
 )

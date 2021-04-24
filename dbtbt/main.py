@@ -1,6 +1,6 @@
 import argparse
 
-from dbtbt.utils.dev_tools import (
+from dbtbt.utils.utils import (
     read_yaml,
     HEADER)
 from dbtbt.build import Build
