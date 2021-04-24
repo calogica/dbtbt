@@ -1,0 +1,10 @@
+fail-fast: true
+dev:
+  target: dev
+  audit_target: dev_audit
+prod:
+  target: prod
+  audit_target: prod_audit
+
+wap:
+  exclude: staging

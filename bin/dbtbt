@@ -1,0 +1,6 @@
+#!/usr/bin/env
+import dbtbt.main
+
+if __name__ == "__main__":
+
+    dbtbt.main.main()
