@@ -1,4 +1,5 @@
-fail-fast: true
+refresh_deps: true
+fail_fast: true
 dev:
   target: dev
   audit_target: dev_audit

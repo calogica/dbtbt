@@ -28,12 +28,22 @@ class Build(object):
         upstream_source = check_upstream_source(args, config)
 
         print_msg(f"Building model(s): {model_list}")
-        exclude_statement = f"--exclude {exclude_list}" if len(exclude_list) > 0 else ""
-        dbt_full_refresh = f"dbt run -m {model_list} {exclude_statement} --fail-fast --target {TARGET} --full-refresh {upstream_source}"
-        dbt_incremental = f"dbt run -m {model_list} {exclude_statement} --fail-fast {upstream_source} --target {TARGET}"
-        dbt_test = f"dbt test -m {model_list} --target {TARGET}"
+        exclude_statement = (
+            f" --exclude {exclude_list}" if len(exclude_list) > 0 else ""
+        )
+
+        dbt_deps = "dbt deps"
+        fail_fast = " --fail-fast" if config["fail_fast"] else ""
+
+        dbt_full_refresh = f"dbt run -m {model_list}{exclude_statement}{fail_fast}{upstream_source} --full-refresh --target {TARGET}"
+        dbt_incremental = f"dbt run -m {model_list}{exclude_statement}{fail_fast}{upstream_source} --target {TARGET}"
+        dbt_test = f"dbt test -m {model_list}{exclude_statement}{upstream_source} --target {TARGET}"
 
         dbt_commands = []
+
+        if config["refresh_deps"]:
+            dbt_commands.append(dbt_deps)
+
         dbt_commands.append(dbt_full_refresh)
 
         if args.incremental:

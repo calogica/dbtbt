@@ -19,6 +19,9 @@ def check_directory_exists(directory):
 
 
 def color_me(msg, color):
+    """
+    Sets color values for colorama
+    """
 
     colors = {
         "red": Fore.RED,

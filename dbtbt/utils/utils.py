@@ -75,7 +75,7 @@ def check_upstream_source(args, config):
 
     if args.target == "dev" and args.upstream_source == "prod":
 
-        defer_options = "--defer --state target/prod_manifest"
+        defer_options = " --defer --state target/prod_manifest"
 
         rebuild_manifest(args, config)
 

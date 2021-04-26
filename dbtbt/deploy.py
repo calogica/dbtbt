@@ -7,7 +7,8 @@ from dbtbt.utils.utils import (
     print_msg,
     run_command,
     check_upstream_source,
-    run_dbt)
+    run_dbt,
+)
 
 from dbtbt.utils.logger import logger
 
@@ -16,10 +17,12 @@ PROD_WARNING = """
 Type PROD to confirm you would like to do this:\n
 """
 
+
 class Deploy(object):
     """
     Build class
     """
+
     @staticmethod
     def deploy(args, config, model_list, exclude_list):
 
@@ -32,7 +35,9 @@ class Deploy(object):
             AUDIT_TARGET = config[args.target]["audit_target"]
             POST_AUDIT_EXCLUDE = config["wap"]["exclude"]
 
-        args.upstream_source = "prod" if not args.upstream_source else args.upstream_source
+        args.upstream_source = (
+            "prod" if not args.upstream_source else args.upstream_source
+        )
 
         if args.target == "prod" and not args.dry_run:
 
@@ -49,22 +54,31 @@ class Deploy(object):
 
         print_msg(f"Deploying model(s): {model_list}")
 
-        exclude_statement = f"--exclude {exclude_list}" if len(exclude_list) > 0 else ""
+        exclude_statement = (
+            f" --exclude {exclude_list}" if len(exclude_list) > 0 else ""
+        )
+
         dbt_deps = "dbt deps"
+        fail_fast = " --fail-fast" if config["fail_fast"] else ""
 
         if args.wap:
-            dbt_audit_full_refresh = f"dbt run -m {model_list} {exclude_statement} --fail-fast --target {AUDIT_TARGET} --full-refresh {upstream_source}"
-            dbt_audit_incremental = f"dbt run -m {model_list} {exclude_statement} --fail-fast --target {AUDIT_TARGET} {upstream_source}"
-            dbt_audit_test = f"dbt test -m {model_list} {exclude_statement} --target {AUDIT_TARGET}"
+            dbt_audit_full_refresh = f"dbt run -m {model_list}{exclude_statement}{fail_fast}{upstream_source} --target {AUDIT_TARGET} --full-refresh"
+            dbt_audit_incremental = f"dbt run -m {model_list}{exclude_statement}{fail_fast}{upstream_source} --target {AUDIT_TARGET}"
+            dbt_audit_test = f"dbt test -m {model_list}{exclude_statement}{upstream_source} --target {AUDIT_TARGET}"
 
             if POST_AUDIT_EXCLUDE:
                 exclude_list = f"{exclude_list} {POST_AUDIT_EXCLUDE}".strip()
 
-        post_exclude_statement = f"--exclude {exclude_list}" if len(exclude_list) > 0 else ""
-        dbt_full_refresh = f"dbt run -m {model_list} {post_exclude_statement} --fail-fast --target {TARGET} --full-refresh {upstream_source}"
+        post_exclude_statement = (
+            f" --exclude {exclude_list}" if len(exclude_list) > 0 else ""
+        )
+        dbt_full_refresh = f"dbt run -m {model_list}{post_exclude_statement}{fail_fast}{upstream_source} --target {TARGET} --full-refresh"
+        dbt_test = f"dbt test -m {model_list}{post_exclude_statement}{upstream_source} --target {TARGET}"
 
         dbt_commands = []
-        dbt_commands.append(dbt_deps)
+
+        if config["refresh_deps"]:
+            dbt_commands.append(dbt_deps)
 
         if args.wap:
             dbt_commands.append(dbt_audit_full_refresh)
@@ -75,5 +89,6 @@ class Deploy(object):
             dbt_commands.append(dbt_audit_test)
 
         dbt_commands.append(dbt_full_refresh)
+        dbt_commands.append(dbt_test)
 
         run_dbt(dbt_commands, args.dry_run)
