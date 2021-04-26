@@ -23,7 +23,7 @@ It runs the following steps:
 
 ### Install
 
-This package is not yet on Pipy and needs to be installed locally as a dev package.
+This package is not yet on PyPI and needs to be installed locally as a dev package.
 
 1. Clone the Github repo:
 `git clone git@github.com:calogica/dbtbt.git`
