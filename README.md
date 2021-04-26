@@ -17,12 +17,24 @@ Use this to `run` and `test` your dbt models in your `dev` project.
 
 It runs the following steps:
 
-1. Run a full refresh of models in `dev`
-2. (Optional) Run models incrementally in `dev`
-3. Run tests in `dev`
+1. Run a full refresh of models in `{target}`
+2. (Optionally) Run models incrementally in `{target}`
+3. Run tests in `{target}`
 
+### Install
 
-### Usage:
+This package is not yet on Pipy and needs to be installed locally as a dev package.
+
+1. Clone the Github repo:
+`git clone git@github.com:calogica/dbtbt.git`
+
+2. Create a new Python `venv`
+
+3. Navigate to the repo folder and install as a local dev package.
+`pip install -e .`
+
+You should then be able to call `dbtbt` from anywhere in the Python `venv` created earlier. Note that `dbt` also needs to be installed in this `venv`.
+### Usage
 
 ```zsh
 usage: dbtbt build [-h] -m MODELS [MODELS ...]
@@ -145,10 +157,10 @@ Use this to deploy models that have recently been merged to `main` via pull requ
 It runs the following steps:
 
 1. Update dbt dependencies
-2. Run a full refresh of models in `<target>_audit`
-3. (Optional) Run models incrementally in `<target>_audit`
-4. Run tests in `<target>_audit`
-5. Run a full refresh of models in `<target>`, excluding any models in `_transform` folder
+2. (Optionally) Run a full refresh of models in `{audit_target}`
+3. (Optionally) Run models incrementally in `{audit_target}`
+4. (Optionally) Run tests in `{audit_target}`
+5. Run a full refresh of models in `{target}`, excluding any models defined in `{wap:exclude}`
 
 Usage:
 
