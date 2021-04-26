@@ -25,7 +25,7 @@ class Build(object):
         print_dry_run(args)
         print_dbt_model_dependencies(model_list, args)
 
-        upstream_source = check_upstream_source(args)
+        upstream_source = check_upstream_source(args, config)
 
         print_msg(f"Building model(s): {model_list}")
         exclude_statement = f"--exclude {exclude_list}" if len(exclude_list) > 0 else ""
