@@ -11,17 +11,10 @@
 
 `dbtbt` is a collection of developer tools to make building (run & test) and deploying models easier.
 
-## dbtbt build
+- [dbtbt build](https://github.com/calogica/dbtbt#dbtbt-build)
+- [dbtbt deploy](https://github.com/calogica/dbtbt#dbtbt-deploy)
 
-Use this to `run` and `test` your dbt models in your `dev` project.
-
-It runs the following steps:
-
-1. Run a full refresh of models in `{target}`
-2. (Optionally) Run models incrementally in `{target}`
-3. Run tests in `{target}`
-
-### Install
+## Install
 
 This package is not yet on PyPI and needs to be installed locally as a dev package.
 
@@ -34,6 +27,16 @@ This package is not yet on PyPI and needs to be installed locally as a dev packa
 `pip install -e .`
 
 You should then be able to call `dbtbt` from anywhere in the Python `venv` created earlier. Note that `dbt` also needs to be installed in this `venv`.
+
+## dbtbt build
+
+Use this to `run` and `test` your dbt models in your `dev` project.
+
+It runs the following steps:
+
+1. Run a full refresh of models in `{target}`
+2. (Optionally) Run models incrementally in `{target}`
+3. Run tests in `{target}`
 ### Usage
 
 ```zsh
